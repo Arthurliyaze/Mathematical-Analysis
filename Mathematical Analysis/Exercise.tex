@@ -1,0 +1,532 @@
+\documentclass[12pt]{report}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{lmodern}
+
+\usepackage{hyperref}
+\usepackage{graphicx}
+\usepackage[english]{babel}
+
+\usepackage{amsthm}
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{bbm}
+
+\usepackage{enumitem}
+
+\newcommand{\sol}{{\textbf{Solution~}}}
+\newcommand{\R}{{\mathbf{R}}}
+
+%use \section but to change secnumdepth so that they don't get numbered.
+\setcounter{secnumdepth}{0}
+
+% Book's title and subtitle
+\title{\Huge \textbf{Understanding Analysis Practice} %\footnote{This is a footnote.} 
+\\ \huge Solutions for some exercise problems %\footnote{This is yet another footnote.}
+}
+% Author
+\author{\textsc{Yaze Li}%\thanks{\url{www.example.com}}
+}
+
+\begin{document}
+%\frontmatter
+\maketitle
+\tableofcontents
+%\mainmatter
+\chapter{The Real Numbers}
+\section{1.2 ~~Some Preliminaries}
+\subsection*{Exercise 1.2.9}
+Given a function $f:D \to \mathbf{R} $ and a subset $B \subseteq  \mathbf{R}$, let $f^{-1}(B)$ be the set of all points from the domain $D$ that get mapped into $B$;
+that is, $f^{-1}(B) = \{x \in D: f(x) \in B\}$. This set is called the \textit{preimage} of $B$.
+\begin{enumerate}[label=(\alph*)]
+    \item Let $f(x)=x^2$. If $A$ is the closed interval $[0,4]$ and $B$ is the closed interval $[-1,1]$, find $f^{-1}(A)$ and $f^{-1}(B)$. Does $f^{-1}(A \cap B) = f^{-1}(A) \cap f^{-1}(B)$ in this case?
+    Does $f^{-1}(A \cup B) = f^{-1}(A) \cup f^{-1}(B)$?\\
+    \textbf{Solution} $f^{-1}(A)=[-2,2],f^{-1}(B)=[-1,1]$.\\
+    $f^{-1}(A \cap B) = f^{-1}([0,1]) = [-1,1] = f^{-1}(A) \cap f^{-1}(B)$.\\
+    $f^{-1}(A \cup B) = f^{-1}([-1,4]) = [-2,2] = f^{-1}(A) \cup f^{-1}(B)$.
+    \item The good behavior of preimages demonstrated in (a) is completely general. Show that for an arbitrary function $g: \mathbf{R} \rightarrow \mathbf{R}$, it is always true that $g^{-1}(A \cap B)=g^{-1}(A) \cap g^{-1}(B)$ and $g^{-1}(A \cup B)=g^{-1}(A) \cup g^{-1}(B)$ for all sets $A, B \subseteq \mathbf{R}$.\\
+    \textbf{Solution} We show that $g^{-1}(A \cap B)=g^{-1}(A) \cap g^{-1}(B)$.\\
+    $(\Rightarrow)$ If $x \in g^{-1}(A \cap B)$, then by definition $g(x) \in A \cap B$. By the definition of intersection, $g(x) \in A$ and $g(x) \in B$.
+    Then $x \in g^{-1}(A)$ and $x \in g^{-1}(B)$, $x \in g^{-1}(A) \cap g^{-1}(B)$.\\
+    $(\Leftarrow)$ Apply the abov procedure backward.\\
+    The proof of $g^{-1}(A \cup B)=g^{-1}(A) \cup g^{-1}(B)$ is similar, just change the intersection into union, and into or.
+\end{enumerate}
+
+\section{1.3 ~~The Axiom of Completeness}
+\subsection*{Exercise 1.3.1}
+\begin{enumerate}[label=(\alph*)]
+    \item Write a formal definition in the style of Definition 1.3.2 for the \textit{infimum} or \textit{greatest lower bound} of a set.\\
+    \textbf{Solution} A real number $i$ is the \textit{greatest lower bound} of a set $A \subseteq \mathbf{R}$ if it meets the following two criteria:
+    \begin{enumerate}[label=(\roman*)]
+        \item $i$ is a lower bound of $A$;
+        \item if $b$ is any lower bound for $A$, then $i \geq b$.
+    \end{enumerate}
+    \item Now, state and prove a version of Lemma 1.3.8 for greatest lower bounds.\\
+    \textbf{Solution} State: \textit{Assume $i \in \mathbf{R}$ is a lower bound for a set $A\subseteq\mathbf{R}$. Then, $i = \inf A$ if and only if , for every choice of $\epsilon >0$, there exists an element $a \in A$ satisfying $i+\epsilon >a$.}\\
+    \textit{Proof.}\\
+    $(\Rightarrow)$ Assume $i = \inf A$, and $i+\epsilon >i$. $i+\epsilon$ is not a lower bound of $A$ based on the criteria (ii) above. Then there must be some element $a \in A$ such that $i+\epsilon >a$.\\
+    $(\Leftarrow)$ Assume $i$ is a lower bound such that for all $\epsilon>0$, $i+\epsilon$ is not a lower bound of $A$. Let $b = i +\epsilon$, then this implies that if $i<b$, then $b$ is not a lower bound of $A$. This is the contrapositive statement of the criteria (ii) above.\qed
+\end{enumerate}
+
+\subsection*{Exercise 1.3.6}
+Given sets $A$ and $B$, define $A+B=\{a+b: a \in A$ and $b \in B\}$. Follow these steps to prove that if $A$ and $B$ are nonempty and bounded above then $\sup (A+B)=\sup A+\sup B$.
+\begin{enumerate}[label=(\alph*)]
+    \item Let $s=\sup A$ and $t=\sup B$. Show $s+t$ is an upper bound for $A+B$.
+    \textbf{Solution} Since $s=\sup A$ and $t=\sup B$, $\forall (a \in A, b \in B), s \geq a, t \geq b$. Then $\forall a+b \in A+B, s+t \geq a+b$, $s+t$ is an upper bound for $A+B$.
+    \item Now let $u$ be an arbitrary upper bound for $A+B$, and temporarily fix $a \in A$. Show $t \leq u-a$.\\
+    \textbf{Solution} $\forall a+b \in A+B, u \geq a+b, u-a \geq b$. Fix $a\in A$, $u-a$ is a upper bound of $B$. Since $t=\sup B$, $t \leq u-a$.
+    \item Finally, show $\sup (A+B)=s+t$.\\
+    \textbf{Solution} (a) has shown that $s+t$ is an upper bound for $A+B$, we only need to show that it's the least. That is if $u$ be an arbitrary upper bound for $A+B$, then $s+t \leq u$.\\
+    From (b) we have $\forall a \in A, t\leq u-a$. $s = \sup A$, then $\forall a\in A, s \geq a$, $t\leq u-a\leq u-s$. Thus $s+t \leq u$.
+    \item Construct another proof of this same fact using Lemma 1.3.8.\\
+    \textbf{Solution} We need to show that for every choice of $\epsilon >0$, there exists an element $a+b \in A+B$ satisfying $s+t-\epsilon <a+b$.\\
+    Given the choice of $\epsilon >0$, since $s$ and $t$ are least upper bounds, we apply Lemma 1.3.8 to them:\\
+    $\forall \epsilon_1 >0, \epsilon_2 >0, \exists a \in A, b \in B$, s.t. $s-\epsilon_1 < a, t-\epsilon_2 < b$. Taking $\epsilon_1 = \epsilon_2 = \frac{\epsilon}{2}$ and adding two inequalities finish the proof.
+\end{enumerate}
+
+\subsection*{Exercise 1.3.11}
+Decide if the following statements about suprema and infima are true or false. Give a short proof for those that are true. For any that are false, supply an example where the claim in question does not appear to hold.
+\begin{enumerate}[label=(\alph*)]
+    \item If $A$ and $B$ are nonempty, bounded, and satisfy $A \subseteq B$, then $\sup A \leq$ $\sup B$.\\
+    \textbf{Solution} True. $\forall a \in A, a \leq \sup A$, $\forall b \in B, b \leq \sup B$. Since $A \subseteq B$, $\forall a \in A, a \in B$. Then $\forall a \in A, a \leq \sup B$, $\sup B$ is an upper bound for $A$. By the definition of $\sup A$, $\sup A \leq \sup B$.
+    \item If $\sup A<\inf B$ for sets $A$ and $B$, then there exists a $c \in \mathbf{R}$ satisfying $a<c<b$ for all $a \in A$ and $b \in B$.\\
+    \textbf{Solution} True. $\forall c \in (\sup A,\inf B), (\forall a \in A, b \in B, a<c<b)$. 
+    \item If there exists a $c \in \mathbf{R}$ satisfying $a<c<b$ for all $a \in A$ and $b \in B$, then $\sup A<\inf B$.\\
+    \textbf{Solution} False. If $c = \sup A =\inf B$, then $\forall a \in A, b \in B, a<c<b$, and $\sup A = \inf B$.
+\end{enumerate}
+
+\section{1.4 ~~Consequences of Completeness}
+\subsection*{Exercise 1.4.2}
+Let $A \subseteq \mathbf{R}$ be nonempty and bounded above, and let $s \in \mathbf{R}$ have the property that for all $n \in \mathbf{N}, s+\frac{1}{n}$ is an upper bound for $A$ and $s-\frac{1}{n}$ is not an upper bound for $A$. Show $s=\sup A$.\\
+\textbf{Solution} Proof by contradiction.\\
+If $s > \sup A$, then let $\epsilon = s-\sup A > 0$, there must exist $n \in \mathbf{N}$ s.t. $n > \frac{1}{\epsilon}$. $s-\frac{1}{n} > s- \epsilon = \sup A$. Then $s-\frac{1}{n}$ is an upper bound of $A$, contradiction.
+If $s < \sup A$, then similarly, there exists $n$ contradicts to $s+\frac{1}{n}$ being an upper bound. \qed
+
+\subsection*{Exercise 1.4.8}
+Give an example of each or state that the request is impossible. When a request is impossible, provide a compelling argument for why this is the case.
+\begin{enumerate}[label=(\alph*)]
+    \item Two sets $A$ and $B$ with $A \cap B=\emptyset, \sup A=\sup B, \sup A \notin A$ and $\sup B \notin B$.\\
+    \textbf{Solution} Let $A = \{1-\frac{1}{2n}: n \in \mathbf{N}\}, B = \{1-\frac{1}{2n-1}: n \in \mathbf{N}\}$, then $A\cap B = \emptyset$. $\sup A = \sup B = 1, 1 \notin A$ and $1 \notin B$. 
+    \item A sequence of nested open intervals $J_1 \supseteq J_2 \supseteq J_3 \supseteq \cdots$ with $\bigcap_{n=1}^{\infty} J_n$ nonempty but containing only a finite number of elements.\\
+    \textbf{Solution} Let $J_n = (-\frac{1}{n},\frac{1}{n}), n\in \mathbf{N}$, then $J_1 \supseteq J_2 \supseteq J_3 \supseteq \cdots$ with $\bigcap_{n=1}^{\infty} J_n = \{0\}$.
+    \item A sequence of nested unbounded closed intervals $L_1 \supseteq L_2 \supseteq L_3 \supseteq \cdots$ with $\bigcap_{n=1}^{\infty} L_n=\emptyset$. (An unbounded closed interval has the form $[a, \infty)=$ $\{x \in R: x \geq a\}$.)\\
+    \textbf{Solution} Let $L_n = [n,\infty), n\in \mathbf{N}$, then $L_1 \supseteq L_2 \supseteq L_3 \supseteq \cdots$ with $\bigcap_{n=1}^{\infty} L_n=\emptyset$.
+    \item A sequence of closed bounded (not necessarily nested) intervals $I_1, I_2$, $I_3, \ldots$ with the property that $\bigcap_{n=1}^N I_n \neq \emptyset$ for all $N \in \mathbf{N}$, but $\bigcap_{n=1}^{\infty} I_n=\emptyset$.\\
+    \textbf{Solution} Impossible. Let $K_n = \bigcap_{m=1}^n I_m$, then for each $n \in \mathbf{N}$, $K_n$ is a closed interval and $K_n \subseteq K_{n+1}$ since $K_{n+1} = K_n \cap I_{n+1}$.\\
+    By the \textbf{Nested Interval Property} (Theorem 1.4.1), $\bigcap_{n=1}^{\infty} K_n \neq \emptyset$. Well, $\bigcap_{n=1}^{\infty} K_n = \bigcap_{n=1}^{\infty} (\bigcap_{m=1}^n I_m) = \bigcap_{n=1}^{\infty} I_n \neq \emptyset$.
+\end{enumerate}
+
+\chapter{Sequences and Series}
+\section{2.2 ~~The Limit of a Sequence}
+\subsection*{Exercise 2.2.2}
+Verify, using the definition of convergence of a sequence, that the following sequences converge to the proposed limit.
+\begin{enumerate}[label=(\alph*)]
+    \item $\lim \frac{2n+1}{5n+4}=\frac{2}{5}$.\\
+    \textbf{Solution} \textit{Proof} For any $n \in \mathbf{N}$,
+    \begin{align*}
+        \bigg| \frac{2n+1}{5n+4}-\frac{2}{5}\bigg| = \bigg|\frac{5(2n+1)-2(5n+4)}{5(5n+4)}\bigg| = \bigg|-\frac{3}{5(5n+4)}\bigg|=\frac{3}{25n+20}<\frac{25}{25n}=\frac{1}{n}
+    \end{align*}
+    so any integer $N \geq \frac{1}{\epsilon}$ will satisfy the definition. \qed
+    \item $\lim \frac{2 n^2}{n^3+3}=0$.\\
+    \textbf{Solution} \textit{Proof} For any $n \in \mathbf{N}$,
+    \begin{align*}
+        \bigg| \frac{2n^2}{n^3+3}-0\bigg| = \frac{2n^2}{n^3+3} <\frac{2n^2}{n^3}=\frac{2}{n}
+    \end{align*}
+    so any integer $N \geq \frac{2}{\epsilon}$ will satisfy the definition. \qed
+    \item $\lim \frac{\sin \left(n^2\right)}{\sqrt[3]{n}}=0$.\\
+    \textbf{Solution} \textit{Proof} For any $n \in \mathbf{N}$,
+    \begin{align*}
+        \bigg| \frac{\sin \left(n^2\right)}{\sqrt[3]{n}}-0\bigg| = \frac{\sin \left(n^2\right)}{\sqrt[3]{n}} \leq\frac{1}{\sqrt[3]{n}}
+    \end{align*}
+    so any integer $N \geq \frac{1}{\epsilon^3}$ will satisfy the definition. \qed
+\end{enumerate}
+\subsection*{Exercise 2.2.4}
+Give an example of each or state that the request is impossible. For any that are impossible, give a compelling argument for why that is the case.
+\begin{enumerate}[label=(\alph*)]
+    \item A sequence with an infinite number of ones that does not converge to one.\\
+    \textbf{Solution} $x_n = (-1)^n$ has an infinite number of ones but diverges.
+    \item A sequence with an infinite number of ones that converges to a limit not equal to one.\\
+    \textbf{Solution} Impossible. First, an infinite number of ones means that $\forall N \in \mathbf{N}, \exists n \geq N$, s.t. $a_n = 1$. Otherwise there will be finite ones.\\
+    Suppose $\lim a_n = a \neq 1$, take $\epsilon = |a-1|$. Then $\forall N \in \mathbf{N}, \exists n \geq N$, s.t. $a_n = 1, |a_n-a|=|1-a|=\epsilon$, violates the definition of limit.
+    \item A divergent sequence such that for every $n \in \mathbf{N}$ it is possible to find $n$ consecutive ones somewhere in the sequence.\\
+    \textbf{Solution} $x_n = (1,-1,1,1,-1,1,1,1,-1,\cdots)$
+\end{enumerate}
+
+\subsection*{Exercise 2.2.6}
+Prove Theorem 2.2.7. To get started, assume $\left(a_n\right) \rightarrow a$ and also that $\left(a_n\right) \rightarrow b$. Now argue $a=b$.\\
+\textbf{Solution} \textit{Proof} Let any $\epsilon > 0 $ be given. Define $\epsilon_1 = \epsilon_2 = \frac{\epsilon}{2} >0$.\\
+Since $(a_n) \to a$, $\exists N_1 \in \mathbf{N}$, s.t. $\forall n \geq N_1, |a_n-a|<\epsilon_1$.\\
+Similarly, $\exists N_2 \in \mathbf{N}$, s.t. $\forall n \geq N_2, |a_n-b|<\epsilon_2$.\\
+Let $N = \max\{N_1,N_2\}$, for any $n>N$, apply the triangle inequality:
+\begin{align*}
+    |a-b| \leq |a-a_n|+|a_n-b| < \epsilon_1+\epsilon_2 = \epsilon
+\end{align*}
+This proves, $\forall \epsilon >0 , |a-b| < \epsilon$, which implies $|a-b|=0, a=b$. \qed
+
+\section{2.3 ~~The Algebraic and Order Limit Theorems}
+\subsection*{Exercise 2.3.3 (Squeeze Theorem)}
+Show that if $x_n \leq y_n \leq z_n$ for all $n \in \mathbf{N}$, and if $\lim x_n=\lim z_n=l$, then $\lim y_n=l$ as well.\\
+\textbf{Solution} \textit{Proof} Let $\epsilon >0$ be given. Since $\lim x_n = l$, $\exists N_1 \in \mathbf{N}$, s.t. $\forall n \geq N_1, |x_n-l| < \epsilon$.\\
+Rewrite it as:
+\begin{align*}
+    \exists N_1 \in \mathbf{N}, \forall n > N_1, l-\epsilon< x_n < l+\epsilon.
+\end{align*}
+Similarly,
+\begin{align*}
+    \exists N_2 \in \mathbf{N}, \forall n > N_2, l-\epsilon< z_n < l+\epsilon.
+\end{align*}
+Let $N = \max\{N_1,N_2\}$, for any $n>N$, apply $x_n\leq y_n \leq z_n$:
+\begin{align*}
+    l-\epsilon <x_n \leq y_n \leq z_n < l+\epsilon, ~~~\text{so}~~~ |y_n-l|<\epsilon.
+\end{align*}
+This proves, $\forall \epsilon >0 , \exists N \in \mathbf{N} $, s.t.$\forall n > N, |y_n-l| < \epsilon$, which implies $\lim y_n = l$. \qed
+
+\subsection*{Exercise 2.3.10}
+Consider the following list of conjectures. Provide a short proof for those that are true and a counterexample for any that are false.
+\begin{enumerate}[label=(\alph*)]
+    \item If $\lim(a_n-b_n)=0$, then $\lim a_n = \lim b_n$.\\
+    \textbf{Solution} False. Consider $a_n = b_n = n$, then $\lim (a_n-b_n)=0$ and $\lim a_n, \lim b_n$ DNE.
+    \item If $(b_n)\to b$, then $|b_n|\to |b|$.\\
+    \textbf{Solution} True. If $(b_n)\to b$, then $\forall \epsilon >0, \exists N \in \mathbf{N}, \forall n \geq N, |b_n-b| < \epsilon$.\\
+    Under the same $\epsilon,N$, $\forall n \geq N, \big| |b_n|-|b| \big| \leq |b_n-b|<\epsilon$. Thus, $|b_n|\to |b|$.
+    \item If $(a_n) \to a$ and $(b_n-a_n) \to 0$, then $(b_n)\to a$.\\
+    \textbf{Solution} True. Apply the \textbf{Algebraic Limit Theorem} (ii), $\lim b_n = \lim [a_n + (b_n-a_n)] = \lim a_n + \lim (b_n-a_n) = a+0 = a$.
+    \item If $(a_n) \to 0$ and $|b_n-b| \leq a_n$ for all $n \in \mathbf{N}$, then $(b_n)\to b$.\\
+    \textbf{Solution} True. If $(a_n)\to 0$, then $\forall \epsilon >0, \exists N \in \mathbf{N}, \forall n \geq N, |a_n| < \epsilon$.\\
+    Under the same $\epsilon,N$, $\forall n \geq N, |b_n-b|\leq a_n \leq |a_n| <\epsilon$. Thus, $(b_n)\to b$.
+\end{enumerate}
+
+\section{2.4 ~~The Monotone Convergence Theorem and a First Look at Infinite Series}
+\subsection*{Practice question}
+Let $(a_n)$ be a sequence such that $|a_{n+1}-a_n|<\frac{1}{2^n}$ for all $n \in \mathbf{N}$. Prove that $(a_n)$ is a convergent sequence.\\
+(\textbf{Hint}: Show that $(a_n)$ is a Cauchy sequence.)\\
+\textbf{Solution} \textit{Proof} Given $\epsilon > 0$, choose $N \in \mathbf{N}$ such that $\frac{1}{2^{N-1}}< \epsilon$. Then for any $n \geq N$ and $p \in \mathbf{N}$,
+\begin{align*}
+    |a_{n+p} -a_n| & \leq |a_n -a_{n+1}| + |a_{n+1}-a_{n+2}| + \ldots + |a_{n+p-1}-a_{n+p}|\\
+                    & \leq \frac{1}{2^n} +\frac{1}{2^{n+1}} +\ldots + \frac{1}{2^{n+p}}\\
+                    & \leq \frac{1}{2^n}\big[ 1+ \frac{1}{2} +\frac{1}{2^2} +\ldots+\frac{1}{2^p}\big]\\
+                    & < \frac{2}{2^n} = \frac{1}{2^{n-1}} < \epsilon 
+\end{align*}
+So $(a_n)$ is a Cauchy sequence, and by \textbf{Theorem 2.6.4 (Cauchy Criterion)}, it converges.
+
+\subsection*{Exercise 2.4.3}
+\begin{enumerate}[label=(\alph*)]
+    \item Show that
+    \begin{align*}
+        \sqrt{2},\sqrt{2+\sqrt{2}},\sqrt{2+\sqrt{2+\sqrt{2}}},\ldots
+    \end{align*}
+    converges and find the limit.\\
+    \textbf{Solution} $x_1 = \sqrt2$,
+    \begin{align*}
+         x_{n+1} = \sqrt{2+x_n},
+    \end{align*}
+    Using induction, $n=1: x_2 = \sqrt{2+\sqrt{2}} >x_1, x_1 <2$, suppose $n=i-1: x_i > x_{i-1}, x_{i-1}<2$, then:
+    \begin{align*}
+        2+x_i > 2+x_{i-1} &\Rightarrow \sqrt{2+x_i} > \sqrt{2+x_{i-1}} \Rightarrow x_{i+1} > x_i\\
+        x_i &= \sqrt{2+x_{i-1}} < \sqrt{2+2} = 2
+    \end{align*}
+    Thus $x_n$ is increasing and bounded $\sqrt2 \leq x_n <2$, by \textbf{Theorem 2.4.2 (Monotone Convergence Theorem)} it converges.\\
+    Let $x = \lim x_n$, by taking limit of each side of the recursive equation in part (a):
+    \begin{align*}
+        x = \sqrt{2+x}
+    \end{align*}
+    we have $x=-1$ or $x=2$, since $x>\sqrt2$, $x=2$.
+    \item Does the sequences
+    \begin{align*}
+        \sqrt{2},\sqrt{2\sqrt{2}},\sqrt{2\sqrt{2\sqrt{2}}},\ldots
+    \end{align*}
+    converges? If so, find the limit.\\
+    \textbf{Solution} $y_1 = \sqrt2$,
+    \begin{align*}
+         y_{n+1} = \sqrt{2y_n},
+    \end{align*}
+    Using induction, $n=1: y_2 = \sqrt{2\sqrt{2}} >y_1, y_1 <2$, suppose $n=i-1: y_i > y_{i-1}, y_{i-1}<2$, then:
+    \begin{align*}
+        2y_i > 2y_{i-1} &\Rightarrow \sqrt{2y_i} > \sqrt{2y_{i-1}} \Rightarrow y_{i+1} > y_i\\
+        y_i &= \sqrt{2y_{i-1}} < \sqrt{2\times2} = 2
+    \end{align*}
+    Thus $y_n$ is increasing and bounded $\sqrt2 \leq y_n <2$, by \textbf{Theorem 2.4.2 (Monotone Convergence Theorem)} it converges.\\
+    Let $y = \lim y_n$, by taking limit of each side of the recursive equation in part (a):
+    \begin{align*}
+        y = \sqrt{2y}
+    \end{align*}
+    we have $y=0$ or $y=2$, since $y>\sqrt2$, $y=2$.
+\end{enumerate}
+
+\section{2.5 ~~Subsequences and the Bolzano–Weierstrass Theorem}
+\subsection*{Exercise 2.5.2}
+Decide whether the following propositions are true or false, providing a short justification for each conclusion.
+\begin{enumerate}[label=(\alph*)]
+    \item If every proper subsequence of $(x_n)$ converges, then $(x_n)$ converges as well.\\
+    \textbf{Solution} True. Sequence $(x_2,x_3,x_4,\ldots)$ is a proper subsequence of $(x_n)$, so it converges. Then $(x_n)$ converges since the first 
+    term does not change the convergence of a sequence.
+    \item If $(x_n)$ contains a divergent subsequence, then $(x_n)$ diverges.\\
+    \textbf{Solution} True. \textbf{Theorem 2.5.2} shows that subsequence of a convergent sequence converges, which is the contrapositive of (b).
+    \item If $(x_n)$ is bounded and diverges, then there exist two subsequences of $(x_n)$
+    that converge to different limits.\\
+    \textbf{Solution} True. 
+    \iffalse{
+        Define:
+    \begin{align*}
+        s_n &= \sup\{x_n: k\geq n\},\\
+        t_n &= \inf\{x_n: k\geq n\}
+    \end{align*}
+    $(s_n)$ is bounded and decreasing, by \textbf{Theorem 2.5.2 (Monotone Convergence Theorem)}, $(s_n)$ converges. So does $(t_n)$.\\
+    The limit superior (upper limit) and limit inferior (lower limit) are defined as:
+    \begin{align*}
+        \lim \sup x_n = \lim s_n, \text{~~~and~~~}\lim \inf x_n = \lim t_n
+    \end{align*}
+    We first show that there exists a subsequence $(x_{n_k})$ of $(x_n)$ that converges to $\lim \sup x_n$.\\
+    Suppose $\lim \sup x_n = \lim s_n = \ell$, i.e. for any $\epsilon >0$, 
+    there exists $N \in \mathbf{N}$ such that
+    \begin{align*}
+        \forall n \geq N, \ell-\epsilon<s_n<\ell+\epsilon
+    \end{align*}
+    Thus $s_N = \sup\{x_n: n\geq N\}<\ell+\epsilon$, and $\forall n \geq N, x_n<\ell+\epsilon$.\\
+    For $\epsilon=1$, there exists $N_1 \in\mathbf{N}$ such that
+    \begin{align*}
+        \ell-1 < s_{N_1} = \sup\{x_n:n \geq N_1\}<\ell+1
+    \end{align*}
+    Thus, $\exists n_1\in \mathbf{N}, \ell-1<a_{n_1}<\ell+1$. Similarly for $\epsilon = \frac{1}{k}$,
+    there exists $N_k \in\mathbf{N}$ such that
+    \begin{align*}
+        \ell-\frac{1}{k} < s_{N_k} = \sup\{x_n:n \geq N_k\}<\ell+\frac{1}{k}
+    \end{align*}
+    and $\exists n_k\in \mathbf{N}, \ell-\frac{1}{k}<a_{n_k}<\ell+\frac{1}{k}$.\\
+    Therefore, $\lim x_{n_k} = \ell$. Similarly, there exists a subsequence of $(x_n)$ that converges to $\lim \inf x_n$.
+    Next we show that if $(x_n)$ diverges,  $\lim \sup x_n \neq \lim \inf x_n$.\\
+    Suppose $\lim \sup x_n = \lim \inf x_n = \ell$, by definition:
+    \begin{align*}
+        &\forall \gamma < \ell, \exists N_1 \in \mathbf{N}: \forall n \geq N_1, x_n > \gamma,\\
+        &\forall \lambda >\ell, \exists N_2 \in \mathbf{N}: \forall n \geq N_2, x_n < \lambda. 
+    \end{align*}
+    Let $N = \max\{N_1,N_2\}$, given any $\epsilon>0$, choose $\gamma = \ell-\epsilon, \lambda=\ell+\epsilon$, then
+    \begin{align*}
+        \forall n>N, \text{~~~~} \ell-\epsilon<x_n<\ell+\epsilon
+    \end{align*}
+    $(x_n)\to \ell$, contradicts to $(x_n)$ diverges.\\
+    \fi
+
+    Since $(x_n)$ is bounded, by Bolzano-Weierstrass, it contains a convergent subsequence $a_n$ that converges to $a$.
+    By definition of convergence of a sequence (2.2.3):
+    \begin{align*}
+        \forall \epsilon>0, \exists N\in \mathbf{N}: \forall n\geq N,  |a_n-a|<\epsilon.
+    \end{align*}
+    $(x_n)$ diverges, so does not satisfy to converge to $a$, then use the negation statement:
+    \begin{align*}
+        \exists \epsilon>0, \forall N \in \mathbf{N}:  \exists k \geq N, |x_k-a| \geq \epsilon.
+    \end{align*}
+    %here we use the fact that $\lnot (P\Rightarrow Q)$ is logically equivalent to $P\land (\lnot Q)$
+    there should be infinite $k$ that satisfies: Suppose we choose $N_1 \in \mathbf{N}$ and $k_1 \in \mathbf{N}: k_1 \geq N_1, |x_{k_1}-a| \geq \epsilon$,
+    then we can choose $N_2 = k_1$, there exists $k_2 \geq N_2 = k_1$, satisfies $|x_{k_2}-a|\geq \epsilon$, so we can continue and choose infinite $k$.\\
+    Such $(x_k)$ is a subsequence of $(x_n)$, so is bounded. Again by B-W, it contains a convergent subsequence that converges to $b$.
+    $b \neq a$ since all terms of $(x_k)$ are bounded away from $a$ by $\epsilon$. Thus, there are two subsequences that converge to different limits.
+    \item If $(x_n)$ is monotone and contains a convergent subsequence, then $(x_n)$
+    converges.\\
+    \textbf{Solution} True. The subsequence is convergent, then it is bounded (by \textbf{Theorem 2.3.2}). We show 
+    that a monotone sequence is bounded if it has a bounded subsequence.\\
+    Without loss of generality, suppose $(x_n)$ is monotonically increasing. $(x_{n_k})$ is bounded by $\forall k\in \mathbf{N}, |x_{n_k}|\leq M$.
+    Then, given any $n \in \mathbf{N}, \exists k \in \mathbf{N}: n \leq n_k, x_n \leq x_{n_k} \leq M$. Thus, $(x_n)$ is bounded. Similar for $(x_n)$ decreases.\\
+    $(x_n)$ is bounded and monotone, then it converges (by \textbf{Theorem 2.4.2 MCT}).
+\end{enumerate}
+
+\subsection*{Exercise 2.5.9}
+Let $(a_n)$ be a bounded sequence, and define the set
+\begin{align*}
+    S = \{x \in \mathbf{R}: x< a_n \text{~~for infinitely many terms~~} a_n\}.
+\end{align*}
+Show that there exists a subsequence $(a_{n_k} )$ converging to $s = \sup S$. (This is a
+direct proof of the Bolzano-Weierstrass Theorem using the Axiom of
+Completeness.)\\
+\textbf{Solution} \textit{Proof} Since $s = \sup S$, then
+\begin{align*}
+    \forall \epsilon > 0, \exists x \in S: x+\epsilon>s
+\end{align*}
+Thus, $|x-s|< \epsilon$, i.e. for any $\epsilon >0$, 
+there exists $N \in \mathbf{N}$ such that
+\begin{align*}
+    \forall n \geq N, s-\epsilon<a_n<s+\epsilon
+\end{align*}
+Given $\epsilon = \frac{1}{k}$,$\exists n_k\in \mathbf{N}, s-\frac{1}{k}<a_{n_k}<s+\frac{1}{k}$.\\
+Therefore, $\lim a_{n_k} = s$.
+
+\section{2.7 ~~Properties of Infinite Series}
+\subsection*{Exercise 2.7.2}
+Decide whether each of the following series converges or
+diverges:\
+\begin{enumerate}[label=(\alph*)]
+    \item $\sum_{n=1}^{\infty} \frac{1}{2^n+n}$\\
+    \textbf{Solution} Note that $0 \leq \frac{1}{2^n+1} \leq \frac{1}{2^n}$, and $\sum_{n=1}^{\infty}\frac{1}{2^n}$
+    converges, since $|\frac{1}{2}|<1$. By \textbf{Theorem 2.7.4 (Comparison Test)}, $\sum_{n=1}^{\infty} \frac{1}{2^n+n}$ converges.
+    \item $\sum_{n=1}^{\infty} \frac{\sin(n)}{n^2}$\\
+    \textbf{Solution} Note that $0 \leq \frac{\sin(n)}{n^2} \leq \frac{1}{n^2}$, and $\sum_{n=1}^{\infty}\frac{1}{n^2}$
+    converges, since the power $2>1$. By comperison test, it converges.
+    \item $1-\frac{3}{4}+\frac{4}{6}-\frac{5}{8}+\frac{6}{10}-\frac{7}{12}+\cdots$\\
+    \textbf{Solution} $a_n = (-1)^{n+1}(\frac{1}{2} + \frac{1}{2n}) = (-1)^{n+1}\frac{1}{2} + (-1)^{n+1}\frac{1}{2n}$. 
+    where $(-1)^{n+1}\frac{1}{2}$ diverges apparently, and $(-1)^{n+1}\frac{1}{2n}$ converges by \textbf{Theorem 2.7.7 (Alternating Series Test)}. As a result, $(a_n)$ diverges.
+    \item $1+\frac{1}{2}-\frac{1}{3}+\frac{1}{4}+\frac{1}{5}-\frac{1}{6}+\frac{1}{7}+\frac{1}{8}-\frac{1}{9}+\cdots$\\
+    \textbf{Solution} $s_{3n}-s_{3(n-1)}=\frac{1}{3n-2}+\frac{1}{3n-1}-\frac{1}{3n} > \frac{1}{3(n-1)}$. We know that 
+    $\sum_{n=2}^{\infty} \frac{1}{3(n-1)}$ diverges since the power $p=1$. Then by the comperison test, $\lim_{n} s_n = s_3+\sum_{n=2}^{\infty} [s_{3n}-s_{3(n-1)}]$ diverges.
+    \item $1-\frac{1}{2^2}+\frac{1}{3}-\frac{1}{4^2}+\frac{1}{5}-\frac{1}{6^2}+\frac{1}{7}-\frac{1}{8^2}+\cdots$\\
+    \textbf{Solution} $s_{2n}-s_{2(n-1)} = \frac{1}{2n-1}-\frac{1}{(2n)^2}$. Then $\lim_n s_n = s_2 + \sum_{n=2}^{\infty} [s_{2n}-s_{2(n-1)}] = \sum_{n=1}^{\infty} \frac{1}{2n-1} - \sum_{n=1}^{\infty}\frac{1}{(2n)^2}$.
+    $\frac{1}{2n-1} > \frac{1}{2n}$, and $\sum_{n=1} \frac{1}{2n}$ diverges, by comperison test, $\sum_{n=1}^{\infty} \frac{1}{2n-1}$ diverges.\\
+    $\sum_{n=1}^{\infty} \frac{1}{(2n)^2}$ converges cince the power $p=2>1$. As a result, $(s_n)$ diverges.
+\end{enumerate}
+
+\subsection*{Exercise 2.7.4}
+Give an example of each or explain why the request is impossible
+referencing the proper theorem(s).\
+\begin{enumerate}[label=(\alph*)]
+    \item Two series $\sum x_n$ and $\sum y_n$ that both diverge but where $\sum x_ny_n$ converges.\\
+    \textbf{Solution} Let $x_n = \frac{1}{n}$ and $y_n=\frac{1}{n+1}$. Both series $\sum x_n$ and $\sum y_n$ 
+    diverges because they're harmonic series with power 1. $\sum x_n y_n = \sum \frac{1}{n(n+1)}$ converges by 
+    Comparison test with $\sum \frac{1}{n^2}$.
+    \item A convergent series $\sum x_n$ and a bounded sequence $(y_n)$ such that $\sum x_ny_n$ diverges.\\
+    \textbf{Solution} Let $x_n = (-1)^n \frac{1}{n}$ being convergent by the Alternating series test, and $y_n = (-1)^n$ is a bounded sequence. 
+    $\sum x_n y_n = \frac{1}{n}$ diverges.
+    \item Two sequences $(x_n)$ and $(y_n)$ where $\sum x_n$ and $\sum (x_n+y_n)$ both converge but $\sum y_n$ diverges.\\
+    \textbf{Solution} Impossible. Since if $\sum x_n$ and $\sum (x_n+y_n)$ both converge, by \textbf{Theorem 2.7.1 (Algebraic Limit Theorem for Series)}, 
+    $\sum y_n$ should also be convergent.
+    \item A sequence $(x_n)$ satisfying $0 \leq x_n \leq 1/n$ where $\sum(-1)^n x_n$ diverges.\\
+    \textbf{Solution} Let $$x_n=
+    \begin{cases}
+        \frac{1}{n} & \text{n is odd}\\
+        0 & \text{n is even}
+    \end{cases}$$
+    It satifies $0 \leq x_n \leq \frac{1}{n}$ obviously and $\sum(-1)^n x_n$ diverges because it's harmonic series with power 1.
+\end{enumerate}
+
+\chapter{Basic Topology of $\mathbf{R}$}
+\section{3.2 ~~Open and Closed Sets}
+\subsection*{Exercise 3.2.2}
+\begin{align*}
+    A = \Bigl\{(-1)^n +\frac{2}{n}:n= 1,2,3,\ldots\Bigr\} \text{~~~~and~~~~} B=\{x\in \mathbf{Q}:0<x<1\}
+\end{align*}
+Answer the following questions for each set:
+\begin{enumerate}[label=(\alph*)]
+    \item What are the limit points?\\
+    \sol The set of limit points of $A$ is $\{-1,1\}$. The set of limit points of $B$ is $[0,1]$.
+    \item Is the set open? Closed?\\
+    \sol $A$ is not open since $1\in A$ does not have an open interval $(a,b)\in A$, and not closed since $-1 \notin A$. 
+    $B$ is not open since $\forall x \in B, \nexists (a,b) : a<x<b \land (a,b)\in B$, and not closed since $\exists^{\infty} x \in [0,1] \land x \in \mathbf{Q}$.
+    \item Does the set contain any isolated points?\\
+    \sol Every points in $A$ except $1$ are isolated points. $B$ has no isolated points.
+    \item Find the closure of the set.\\
+    \sol $\bar{A}=A \cup \{-1\}$ and $\bar{B}= B \cup [0,1] = [0,1]$.
+\end{enumerate}
+\subsection*{Exercise 3.2.5}
+Prove \textbf{Theorem 3.2.8.} \textit{A set $F \subseteq \mathbf{R}$ is closed if and only if every Cauchy sequence contained 
+in $F$ has a limit that is also an element of $F$.}\\
+\sol \textit{Proof} \\
+$\Rightarrow$ Suppose set $F \subseteq \mathbf{R}$ is closed, and let $(x_n)$ be a Cauchy sequence contained in $F$. 
+By Cauchy Criterion, $(x_n)\to x$, $x$ is then a limit point of $F$. Thus, $x \in F$.\\
+$\Leftarrow$ Suppose every Cauchy sequence in $F$ converges to a limit in $F$. Let $x$ be a limit point of $F$. 
+By \textbf{Theorem 3.2.5}, $\exists (a_n) \in F: x=\lim a_n$, and by Cauchy Criterion, $(a_n)$ must be a Cauchy sequence, 
+then $x \in F$, and $F$ is closed. \qed
+\subsection*{Exercise 3.2.11}
+\begin{enumerate}[label=(\alph*)]
+    \item Prove that $\overline{A \cup B}=\overline{A}\cup\overline{B}$.\\
+    \sol \textit{Proof} Given set $A,B$ and let $A', B'$ be the set of all limit points of $A$ and $B$, respectively. 
+    And $(A \cup B)'$ be the set of all limit points of $A \cup B$.\\
+    $\subseteq$ If $x \in \overline{A \cup B}$, $x \in (A \cup B)\cup(A \cup B)'$, i.e. 
+    $(x \in A) \lor (x\in B) \lor (x\in (A \cup B)')$. If $(x \in A) \lor (x \in B)$, then obviously 
+    $x \in \overline{A}\cup\overline{B}$. If $x\in (A \cup B)'$, $x =\lim (x_n)$ for some sequence $x_n$ 
+    contained in $A\cup B$, then $((x_n) \in A) \lor ((x_n) \in B)$. If $(x_n) \in A$, then $x \in A'$, 
+    similar for $(x_n) \in B$, thus $x \in (A'\cup B')$, $x \in \overline{A}\cup\overline{B}$.\\
+    $\supseteq$ If $x \in \overline{A}\cup\overline{B}$, $(x \in (A \cup A')) \lor (x \in (B \cup B'))$, i.e. 
+    $(x \in A) \lor (x \in A') \lor (x \in B) \lor (x\in B')$. Similarly, we consider $(x \in A') \lor (x \in B')$, then 
+    $x =\lim x_n$ for some sequence $((x_n)\in A) \lor ((x_n) \in B)$, then $(x_n) \in (A \cup B)$, thus 
+    $x \in (A \cup B)', x\in \overline{A\cup B}$.\\
+    That completes the proof. \qed  
+    \item Does this result about closures extend to infinite union of sets?\\
+    \sol No, it does not. Because the previous proof relies on the fact that 
+    the closure is a closed set and the union of a finite collection of closed sets is closed. 
+    While infinite union of sets are not always closed. For example, $A_n = \{\frac{1}{n}\}$ is a closed set for each $n \in \mathbf{N}$, 
+    and $\bigcup_{n=1}^\infty A_n= \{\frac{1}{n}: n \in \mathbf{N}\}$, which is a open set with limit point 0.
+    \begin{align*}
+        \overline{\bigcup_{n=1}^\infty A_n}= \bigcup_{n=1}^\infty \overline{A_n} \cup \{0\}
+    \end{align*}
+\end{enumerate}
+
+\section{3.3 ~~Compact Sets}
+\subsection*{Exercise 3.3.4}
+Assume $K$ is compact and $F$ is closed. Decide if the following
+sets are definitely compact, definitely closed, both, or neither.
+\begin{enumerate}[label=(\alph*)]
+    \item $K \cap F$\\
+    \sol $K$ is compact so is closed and bounded, $F$ is closed. $K \cap F$ is the intersection of closed sets, is closed. 
+    $K \cap F$ is a subset of $K$, thus bounded. So $K \cap F$ is compact.
+    \item $\overline{F^c \cup K^c}$\\
+    \sol The form of closure implies closed. $K$ is bounded implies $K^c$ is unbounded, so is 
+    $F^c \cup K^c$ and $\overline{F^c \cup K^c}$.
+    \item $K\backslash F = \{x \in K: x\notin F\}$\\
+    \sol $K\backslash F = K \cap F^c$, which is a subset of $K$, thus bounded. While it can be closed or not. 
+    Let $K'$ be the set of limit points of $K$. If $K \subseteq F^c $, then $K\backslash F = K$, is still closed. 
+    If $K \subseteq F^c$ and $K' \cap F \neq \emptyset$, i.e. there is limit points of $K$ in set $F$, 
+    then it is also a limit point of $K\backslash F$ but not in $K\backslash F$, thus $K\backslash F$ is not closed.
+    \item $\overline{K \cap F^c}$\\
+    \sol The form of closure implies being closed. From (c) we know that $K \cap F^c$ is bounded, so is $\overline{K \cap F^c}$. 
+    Thus, $\overline{K \cap F^c}$ is compact.
+\end{enumerate}
+\subsection*{Exercise 3.3.8}
+Let $K$ and $L$ be nonempty compact sets, and define
+\begin{align*}
+    d=\inf\{|x-y|:x \in K \text{~~and~~} y \in L\}.
+\end{align*}
+This turns out to be a reasonable definition for the \textit{distance} between $K$ and $L$.
+\begin{enumerate}[label=(\alph*)]
+    \item If $K$ and $L$ are disjoint, show $d >0$ and that $d=|x_0-y_0|$ for some $x_0 \in K$ and 
+    $y_0 \in L$.\\
+    \sol $K$ and $L$ being compact implies $\{|x-y|:x \in K \text{~~and~~} y \in L\}$ is a compact set. 
+    Since $K$ and $L$ are disjoint, $\nexists x \in K \land x \in L$, $|x-y| >0, d >0$.
+    $\{|x-y|:x \in K \text{~~and~~} y \in L\}$ is closed, the limit point $d=|x_0-y_0|$ is in the set. 
+    Thus, $d=|x_0-y_0|$ for some $x_0 \in K$ and $y_0 \in L$.
+    \item Show that it's possible to have $d=0$ if we assume only that the disjoint sets $K$ 
+    and $L$ are closed.\\
+    \sol Let $K = \mathbf{R}$ and $L=\mathbf{N}$, both are closed and unbounded. Then $d=0$.
+\end{enumerate}
+
+\chapter{Functional Limits and Continuity}
+\section{4.2 ~~Functional Limits}
+\subsection*{Exercise 4.2.5}
+Use Definition 4.2.1 to supply a proper proof for the following
+limit statements.
+\begin{enumerate}[label=(\alph*)]
+    \item $\lim_{x\to2}(3x+4)=10.$\\
+    \sol $|(3x+4)-10|=|3x-6|=3|x-2|$. Given $\epsilon >0$, choose $\delta = \epsilon/3$, 
+    then $0<|x-2|<\delta$ implies $|(3x+4)-10|<3\delta=3(\epsilon/3)=\epsilon$.
+    \item $\lim_{x\to0}x^3=0.$\\
+    \sol $|x^3-0|=|x^3|$. Given $\epsilon >0$, choose $\delta = \epsilon^{\frac{1}{3}}$, 
+    then $0<|x-0|<\delta$ implies $|x^3-0|<\delta^3=\epsilon$.
+    \item $\lim_{x\to2}(x^2+x-1)=5.$\\
+    \sol $|(x^2+x-1)-5|=|x^2+x-6|=|x-2||x+3|$. Given $\epsilon >0$, choose $\delta = \min \{1,\epsilon/6\}$. 
+    If $0<|x-2|<\delta$, then 
+    \begin{align*}
+        |(x^2+x-1)-5|=|x-2||x+3|<\bigg(\frac{\epsilon}{6}\bigg)6=\epsilon.
+    \end{align*}
+    \item $\lim_{x\to3}\frac{1}{x}=\frac{1}{3}.$\\
+    \sol $\bigg|\frac{1}{x}-\frac{1}{3}\bigg|=\frac{|x-3|}{3|x|}$. Given $\epsilon >0$, 
+    choose $\delta=\min\{1,6\epsilon\}$. If $0<|x-3|<\delta$, then
+    \begin{align*}
+        \bigg|\frac{1}{x}-\frac{1}{3}\bigg|=\frac{|x-3|}{3|x|}<6\epsilon\bigg(\frac{1}{6}\bigg)=\epsilon.
+    \end{align*}
+\end{enumerate}
+\subsection*{Exercise 4.2.7}
+Let $g : A \to \mathbf{R}$ and assume that $f$ is a bounded function on $A$
+in the sense that there exists $M >0$ satisfying $|f(x)| \leq M$ for all $x \in A$.\\
+Show that if $\lim_{x\to c} g(x) = 0$, then $\lim_{x\to c} g(x)f(x) = 0$ as well.\\
+\sol \\\textit{Proof} If $\lim_{x\to c} g(x) = 0$, by definition:
+\begin{align*}
+    \forall \epsilon_1>0, \exists \delta>0 : 0<|x-c|<\delta \Rightarrow |g(x)|<\epsilon_1.
+\end{align*}
+and we know that
+\begin{align*}
+    \exists M>0, \forall x \in A: |f(x)|\leq M.
+\end{align*}
+Given $\epsilon >0$, let $\epsilon_1=\frac{\epsilon}{M}$, then there exists $\delta$ such that 
+if $0<|x-c|<\delta$, $|g(x)|<\epsilon_1=\frac{\epsilon}{M}$. Thus,
+\begin{align*}
+    |g(x)f(x)-0|=|g(x)||f(x)|<\biggl(\frac{\epsilon}{M}\biggr)M=\epsilon.
+\end{align*}
+\qed
+\end{document}
